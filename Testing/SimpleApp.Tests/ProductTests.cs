@@ -33,7 +33,7 @@ namespace SimpleApp.Tests
 
             p.Price = 200M;
 
-            Assert.Equal(100M, p.Price);
+            Assert.Equal(200M, p.Price);
         }
     }
 }
