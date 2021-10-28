@@ -10,15 +10,24 @@ namespace SimpleApp.Tests
 {
     public class HomeControllerTests
     {
+        class FakeDataSource: IDataSource
+        {
+            public IEnumerable<Product> Products { get; set; }
+            public FakeDataSource(Product[] data) => Products = data;
+        }
+
+
         [Fact]
         public void IndexActionModelIsComplete()
         {
             // Arrange
-            var controller = new HomeController();
             var products = new[] {
-                new Product { Name = "Kayak", Price = 275M },
-                new Product { Name = "Lifejacket", Price = 48.95M }
+                new Product { Name = "P1", Price = 100M },
+                new Product { Name = "P2", Price = 200M },
+                new Product { Name = "P3", Price = 300M }
             };
+            IDataSource dataSource = new FakeDataSource(products);
+            var controller = new HomeController() { DataSource = dataSource };
 
             // Act
             var model = (controller.Index() as ViewResult)?.ViewData.Model as IEnumerable<Product>;
